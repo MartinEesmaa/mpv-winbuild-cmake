@@ -3,9 +3,9 @@ PROG=@CMAKE_INSTALL_PREFIX@/bin/@clang_compiler@
 TARGET=@TARGET_ARCH@
 FLAGS=""
 FLAGS="$FLAGS -target $TARGET"
-FLAGS="$FLAGS -rtlib=compiler-rt"
-FLAGS="$FLAGS -unwindlib=libunwind"
-FLAGS="$FLAGS -stdlib=libc++ @driver_mode@"
+# FLAGS="$FLAGS -rtlib=compiler-rt"
+# FLAGS="$FLAGS -unwindlib=libunwind"
+FLAGS="$FLAGS @driver_mode@"
 FLAGS="$FLAGS -fuse-ld=lld"
 
 "$PROG" $FLAGS "$@" @linker@

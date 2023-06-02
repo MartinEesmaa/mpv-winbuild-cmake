@@ -6,9 +6,9 @@ ExternalProject_Add(ffmpeg
         bzip2
         gmp
         lame
-        mbedtls
-        libssh
-        libsrt
+        # mbedtls
+        # libssh
+        # libsrt
         libass
         libbluray
         libmodplug
@@ -31,11 +31,11 @@ ExternalProject_Add(ffmpeg
         libjxl
         shaderc
         libplacebo
-        libzvbi
+        # libzvbi
         libaribcaption
         rav1e
         dav1d
-        vapoursynth
+        # vapoursynth
         uavs3d
         davs2
     GIT_REPOSITORY https://github.com/FFmpeg/FFmpeg.git
@@ -47,7 +47,6 @@ ExternalProject_Add(ffmpeg
         --prefix=${MINGW_INSTALL_PREFIX}
         --arch=${TARGET_CPU}
         --target-os=mingw32
-        --target-exec=wine
         --pkg-config-flags=--static
         --enable-cross-compile
         --enable-runtime-cpudetect
@@ -56,7 +55,7 @@ ExternalProject_Add(ffmpeg
         --enable-nonfree
         --enable-postproc
         --enable-avisynth
-        --enable-vapoursynth
+        # --enable-vapoursynth
         --enable-gmp
         --enable-libass
         --enable-libbluray
@@ -80,16 +79,16 @@ ExternalProject_Add(ffmpeg
         --enable-libuavs3d
         --enable-libxvid
         --enable-libzimg
-        --enable-mbedtls
+        --enable-schannel
         --enable-libxml2
         --enable-libmysofa
-        --enable-libssh
-        --enable-libsrt
+        # --enable-libssh
+        # --enable-libsrt
         --enable-libvpl
         --enable-libjxl
         --enable-libplacebo
         --enable-libshaderc
-        --enable-libzvbi
+        # --enable-libzvbi
         --enable-libaribcaption
         --enable-cuda
         --enable-cuvid
@@ -97,10 +96,11 @@ ExternalProject_Add(ffmpeg
         --enable-nvenc
         --enable-amf
         --disable-doc
+        --disable-vulkan
         --disable-vaapi
         --disable-vdpau
         --disable-videotoolbox
-        "--extra-libs='-lstdc++'" # needs by libjxl and shaderc
+        "--extra-libs='-fopenmp -lstdc++'" # needs by libjxl and shaderc
     BUILD_COMMAND ${MAKE}
     INSTALL_COMMAND ${MAKE} install
     LOG_DOWNLOAD 1 LOG_UPDATE 1 LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1

@@ -35,10 +35,12 @@ ExternalProject_Add(ffmpeg
         libaribcaption
         rav1e
         dav1d
+        vvdec
+        fdkaac
         vapoursynth
         uavs3d
         davs2
-    GIT_REPOSITORY https://github.com/FFmpeg/FFmpeg.git
+    GIT_REPOSITORY https://github.com/MartinEesmaa/FFmpeg-VVC.git ffmpeg
     SOURCE_DIR ${SOURCE_LOCATION}
     GIT_CLONE_FLAGS "--filter=tree:0"
     UPDATE_COMMAND ""
@@ -76,6 +78,8 @@ ExternalProject_Add(ffmpeg
         --enable-libx265
         --enable-librav1e
         --enable-libdav1d
+        --enable-libvddec
+        --enable-libfdk_aac
         --enable-libdavs2
         --enable-libuavs3d
         --enable-libxvid
@@ -101,6 +105,7 @@ ExternalProject_Add(ffmpeg
         --disable-vdpau
         --disable-videotoolbox
         "--extra-libs='-lstdc++'" # needs by libjxl and shaderc
+        --extra-version=VVCEasy
     BUILD_COMMAND ${MAKE}
     INSTALL_COMMAND ${MAKE} install
     LOG_DOWNLOAD 1 LOG_UPDATE 1 LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1

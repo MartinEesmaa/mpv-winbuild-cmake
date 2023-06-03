@@ -237,7 +237,7 @@ jobs:
           ssh-keyscan frs.sourceforge.net > /root/.ssh/known_hosts
           chmod 400 sf_key
           chmod -R 700 /root
-          sftp -i sf_key shinchiro@frs.sourceforge.net:/home/frs/project/mpv-player-windows <<END
+          sftp -i sf_key MartinEesmaa@frs.sourceforge.net:/home/frs/project/mpv-player-windows <<END
           put release/mpv-dev*           libmpv
           put release/mpv-i686*          32bit
           put release/mpv-x86_64-[!v3]*  64bit
@@ -252,10 +252,10 @@ jobs:
         run: |
           short_date=$(date "+%Y%m%d")
           body=$(cat <<END
-          ![GitHub release (by tag)](https://img.shields.io/github/downloads/shinchiro/mpv-winbuild-cmake/$short_date/total?label=Downloads)
+          ![GitHub release (by tag)](https://img.shields.io/github/downloads/MartinEesmaa/mpv-winbuild-cmake/$short_date/total?label=Downloads)
           END
           )
-          id=$(curl -u shinchiro:$GH_TOKEN $CURL_RETRIES -s -X POST -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/shinchiro/mpv-winbuild-cmake/releases -d @- <<END | jq -r '.id'
+          id=$(curl -u MartinEesmaa:$GH_TOKEN $CURL_RETRIES -s -X POST -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/MartinEesmaa/mpv-winbuild-cmake/releases -d @- <<END | jq -r '.id'
           {
             "tag_name": "$short_date",
             "name": "$short_date",
@@ -263,7 +263,7 @@ jobs:
           }
           END
           )
-          for file in release/*.7z; do curl -u shinchiro:$GH_TOKEN $CURL_RETRIES -X POST -H "Accept: application/vnd.github.v3+json" -H "Content-Type: $(file -b --mime-type $file)" https://uploads.github.com/repos/shinchiro/mpv-winbuild-cmake/releases/$id/assets?name=$(basename $file) --data-binary @$file; done
+          for file in release/*.7z; do curl -u MartinEesmaa:$GH_TOKEN $CURL_RETRIES -X POST -H "Accept: application/vnd.github.v3+json" -H "Content-Type: $(file -b --mime-type $file)" https://uploads.github.com/repos/MartinEesmaa/mpv-winbuild-cmake/releases/$id/assets?name=$(basename $file) --data-binary @$file; done
 
       - name: Pruning tags
         continue-on-error: true
@@ -273,18 +273,18 @@ jobs:
           tag_list=($(git tag | sort -r))
           old=${tag_list[@]:30}
           for tag in ${old[@]}; do
-            id=$(curl -u shinchiro:$GH_TOKEN $CURL_RETRIES -s -X GET -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/shinchiro/mpv-winbuild-cmake/releases/tags/$tag | jq -r '.id')
-            curl -u shinchiro:$GH_TOKEN $CURL_RETRIES -s -X DELETE -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/shinchiro/mpv-winbuild-cmake/releases/$id
+            id=$(curl -u MartinEesmaa:$GH_TOKEN $CURL_RETRIES -s -X GET -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/MartinEesmaa/mpv-winbuild-cmake/releases/tags/$tag | jq -r '.id')
+            curl -u MartinEesmaa:$GH_TOKEN $CURL_RETRIES -s -X DELETE -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/MartinEesmaa/mpv-winbuild-cmake/releases/$id
             git tag -d $tag
           done
-          git push --tags --prune https://shinchiro:$GH_TOKEN@github.com/shinchiro/mpv-winbuild-cmake
+          git push --tags --prune https://MartinEesmaa:$GH_TOKEN@github.com/MartinEesmaa/mpv-winbuild-cmake
 
       - name: Delete releases cache
         if: ${{ github.event.inputs.github_release == 'false' || steps.upload_packages_gh.outcome == 'success' }}
         run: |
-          curl -u shinchiro:$GH_TOKEN $CURL_RETRIES -s -o /dev/null -X DELETE -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/shinchiro/mpv-winbuild-cmake/actions/caches?key=$release32_key
-          curl -u shinchiro:$GH_TOKEN $CURL_RETRIES -s -o /dev/null -X DELETE -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/shinchiro/mpv-winbuild-cmake/actions/caches?key=$release64_key
-          curl -u shinchiro:$GH_TOKEN $CURL_RETRIES -s -o /dev/null -X DELETE -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/shinchiro/mpv-winbuild-cmake/actions/caches?key=$release64_v3_key
+          curl -u MartinEesmaa:$GH_TOKEN $CURL_RETRIES -s -o /dev/null -X DELETE -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/MartinEesmaa/mpv-winbuild-cmake/actions/caches?key=$release32_key
+          curl -u MartinEesmaa:$GH_TOKEN $CURL_RETRIES -s -o /dev/null -X DELETE -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/MartinEesmaa/mpv-winbuild-cmake/actions/caches?key=$release64_key
+          curl -u MartinEesmaa:$GH_TOKEN $CURL_RETRIES -s -o /dev/null -X DELETE -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/MartinEesmaa/mpv-winbuild-cmake/actions/caches?key=$release64_v3_key
 
   gist:
     name: Gist
@@ -302,10 +302,10 @@ jobs:
 
       - name: Upload job logs to gist
         run: |
-          url=$(curl -su shinchiro:$GH_TOKEN -X GET -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/shinchiro/mpv-winbuild-cmake/actions/runs/$RUN_ID/jobs | jq -r '.jobs[0] | .url')
-          curl -sLu shinchiro:$GH_TOKEN -X GET -H "Accept: application/vnd.github.v3+json" $url/logs -o mpv_log
-          git clone --depth 1 https://shinchiro:$GH_TOKEN@gist.github.com/90308c6632c9010d03b325c9ca6a4b6f job_log
+          url=$(curl -su MartinEesmaa:$GH_TOKEN -X GET -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/MartinEesmaa/mpv-winbuild-cmake/actions/runs/$RUN_ID/jobs | jq -r '.jobs[0] | .url')
+          curl -sLu MartinEesmaa:$GH_TOKEN -X GET -H "Accept: application/vnd.github.v3+json" $url/logs -o mpv_log
+          git clone --depth 1 https://MartinEesmaa:$GH_TOKEN@gist.github.com/90308c6632c9010d03b325c9ca6a4b6f job_log
           cp -f mpv_log job_log/mpv_log
           git -C job_log add .
           git -C job_log commit --amend --no-edit
-          git -C job_log push -f https://shinchiro:$GH_TOKEN@gist.github.com/90308c6632c9010d03b325c9ca6a4b6f
+          git -C job_log push -f https://MartinEesmaa:$GH_TOKEN@gist.github.com/90308c6632c9010d03b325c9ca6a4b6f

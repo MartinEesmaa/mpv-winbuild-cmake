@@ -21,6 +21,8 @@ list(APPEND ep
     libpng
     x264
     x265
+    vvdec
+    fdkaac
     libdvdcss
     libdvdread
     libdvdnav

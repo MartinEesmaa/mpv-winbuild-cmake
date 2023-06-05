@@ -22,7 +22,7 @@ list(APPEND ep
     x264
     x265
     vvdec
-    fdkaac
+    fdk-aac
     libdvdcss
     libdvdread
     libdvdnav

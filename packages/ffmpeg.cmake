@@ -36,7 +36,7 @@ ExternalProject_Add(ffmpeg
         rav1e
         dav1d
         vvdec
-        fdkaac
+        fdk-aac
         vapoursynth
         uavs3d
         davs2

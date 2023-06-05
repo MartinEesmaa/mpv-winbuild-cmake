@@ -78,7 +78,7 @@ ExternalProject_Add(ffmpeg
         --enable-libx265
         --enable-librav1e
         --enable-libdav1d
-        --enable-libvddec
+        --enable-libvvdec
         --enable-libfdk_aac
         --enable-libdavs2
         --enable-libuavs3d

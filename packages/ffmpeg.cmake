@@ -35,6 +35,7 @@ ExternalProject_Add(ffmpeg
         libplacebo
         libzvbi
         libaribcaption
+        aom
         rav1e
         dav1d
         vvdec
@@ -80,6 +81,7 @@ ExternalProject_Add(ffmpeg
         --enable-libwebp
         --enable-libx264
         --enable-libx265
+        --enable-libaom
         --enable-librav1e
         --enable-libdav1d
         --enable-libvvdec
@@ -108,6 +110,7 @@ ExternalProject_Add(ffmpeg
         --disable-vaapi
         --disable-vdpau
         --disable-videotoolbox
+        --disable-decoder=libaom_av1
         "--extra-libs='-lstdc++'" # needs by libjxl and shaderc
         --extra-version=VVCEasy
     BUILD_COMMAND ${MAKE}

@@ -223,20 +223,20 @@ to update flags which will pass on gcc, g++ and etc.
     - rav1e
     - libaribcaption
     - zlib (zlib-ng)
+    - expat
 
 - Zip
-    - expat (2.5.0)
     - bzip (1.0.8)
     - xvidcore (1.3.7)
     - vorbis (1.3.7)
     - speex (1.2.1)
     - ogg (1.3.5)
     - lzo (2.10)
-    - libopenmpt (0.7.2)
+    - libopenmpt (0.7.3)
     - libiconv (1.17)
     - gmp (6.3.0)
-    - vapoursynth (R63)
-    - libsdl2 (2.28.2)
+    - vapoursynth (R65/R63)
+    - libsdl2 (2.28.4)
     - mbedtls (3.5.0)
     - ~~libressl (3.1.5)~~
 

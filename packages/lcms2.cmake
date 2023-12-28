@@ -6,7 +6,7 @@ ExternalProject_Add(lcms2
     SOURCE_DIR ${SOURCE_LOCATION}
     GIT_CLONE_FLAGS "--filter=tree:0"
     UPDATE_COMMAND ""
-    CONFIGURE_COMMAND ${EXEC} meson <BINARY_DIR> <SOURCE_DIR>
+    CONFIGURE_COMMAND ${EXEC} CONF=1 meson <BINARY_DIR> <SOURCE_DIR>
         --prefix=${MINGW_INSTALL_PREFIX}
         --libdir=${MINGW_INSTALL_PREFIX}/lib
         --cross-file=${MESON_CROSS}
@@ -20,4 +20,5 @@ ExternalProject_Add(lcms2
 )
 
 force_rebuild_git(lcms2)
+force_meson_configure(lcms2)
 cleanup(lcms2 install)

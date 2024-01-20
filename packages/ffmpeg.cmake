@@ -109,6 +109,8 @@ ExternalProject_Add(ffmpeg
         --enable-nvdec
         --enable-nvenc
         --enable-amf
+        --enable-openal
+        --enable-opengl
         --disable-doc
         --disable-ffplay
         --disable-ffprobe
@@ -116,7 +118,7 @@ ExternalProject_Add(ffmpeg
         --disable-vdpau
         --disable-videotoolbox
         --disable-decoder=libaom_av1
-        ${ffmpeg_mlp}
+        ${ffmpeg_lto}
         --extra-cflags='-Wno-error=int-conversion'
         "--extra-libs='${ffmpeg_extra_libs}'" # -lstdc++ / -lc++ needs by libjxl and shaderc
         --extra-version=VVCEasy

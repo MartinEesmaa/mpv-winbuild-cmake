@@ -1,3 +1,12 @@
+From a446ae1314d178d84f4cc4bd909c5808d6e5816d Mon Sep 17 00:00:00 2001
+From: MartinEesmaa <martin.eesmaa@protonmail.com>
+Date: Thu, 21 Mar 2024 21:59:14 +1100
+Subject: [PATCH] Make top-left show in version
+
+---
+ player/lua/osc.lua | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
 diff --git a/player/lua/osc.lua b/player/lua/osc.lua
 index 3ba1890..61f6988 100644
 --- a/player/lua/osc.lua
@@ -11,3 +20,6 @@ index 3ba1890..61f6988 100644
          end
          set_osd(display_w, display_h, ass.text, -1000)
  
+-- 
+2.40.1.windows.1
+

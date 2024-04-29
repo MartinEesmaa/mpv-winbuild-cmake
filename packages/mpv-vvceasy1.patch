@@ -1,18 +1,18 @@
-From 52e61d85745cc85c61d9327e504aa8e5cc69e2bd Mon Sep 17 00:00:00 2001
+From 2532a43b676cc12de7ba4bd4d53e35090a46205f Mon Sep 17 00:00:00 2001
 From: MartinEesmaa <martin.eesmaa@protonmail.com>
-Date: Sun, 28 Apr 2024 20:51:11 +1000
-Subject: [PATCH] demux_mkv: support VVC matroska demux
+Date: Mon, 29 Apr 2024 22:48:30 +1000
+Subject: [PATCH] Still support VVC1 fourcc from V_QUICKTIME
 
-This allows to demux Versatile Video Codec with Matroska container to play, but MKV tag is V_QUICKTIME.
+This will continue to detect to demux fourcc of vvc1 on V_QUICKTIME Codec ID of Matroska
 ---
  demux/demux_mkv.c | 7 +++++++
  1 file changed, 7 insertions(+)
 
 diff --git a/demux/demux_mkv.c b/demux/demux_mkv.c
-index 443cec03a5..f252f80375 100644
+index 9bee8a4011..2b3eba72aa 100644
 --- a/demux/demux_mkv.c
 +++ b/demux/demux_mkv.c
-@@ -1538,6 +1538,13 @@ static int demux_mkv_open_video(demuxer_t *demuxer, mkv_track_t *track)
+@@ -1539,6 +1539,13 @@ static int demux_mkv_open_video(demuxer_t *demuxer, mkv_track_t *track)
              extradata = track->private_data;
              extradata_size = track->private_size;
          }

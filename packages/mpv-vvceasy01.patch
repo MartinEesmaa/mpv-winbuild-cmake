@@ -1,0 +1,25 @@
+From c39856537ff10890f7c7c40c76a64b9f62e7a233 Mon Sep 17 00:00:00 2001
+From: MartinEesmaa <martin.eesmaa@protonmail.com>
+Date: Tue, 3 Sep 2024 22:56:18 +1000
+Subject: [PATCH] Support Windows 7 version compatability
+
+---
+ meson.build | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/meson.build b/meson.build
+index 3bca70e..5a997d2 100644
+--- a/meson.build
++++ b/meson.build
+@@ -307,7 +307,7 @@ features += {'darwin': darwin}
+ features += {'posix': posix}
+ features += {'dos-paths': win32, 'win32': win32}
+ 
+-mswin_flags = ['-D_WIN32_WINNT=0x0A00', '-DWINVER=0x0A00', '-DUNICODE',
++mswin_flags = ['-D_WIN32_WINNT=0x0601', '-DWINVER=0x0601', '-DUNICODE',
+                '-DCOBJMACROS', '-DINITGUID', '-DNOMINMAX',
+                '-D_USE_MATH_DEFINES', '-DWIN32_LEAN_AND_MEAN',
+                '-D_CRT_DECLARE_NONSTDC_NAMES', '-D_CRT_NONSTDC_NO_WARNINGS',
+-- 
+
+

@@ -1,40 +1,39 @@
-From 50199c3dd7ceb888a9bb32ae2dfbbb0906eab654 Mon Sep 17 00:00:00 2001
+From c9817fdcb26f5b1a8834335c334894c8a0264c89 Mon Sep 17 00:00:00 2001
 From: MartinEesmaa <martin.eesmaa@protonmail.com>
-Date: Wed, 4 Sep 2024 08:28:08 +1000
+Date: Wed, 4 Sep 2024 09:15:44 +1000
 Subject: [PATCH] osdep/io.c: Modify codes to support Win 7
 
 ---
- osdep/io.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ osdep/io.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
 diff --git a/osdep/io.c b/osdep/io.c
-index a8210dc..85103d6 100644
+index a8210dc..7509c43 100644
 --- a/osdep/io.c
 +++ b/osdep/io.c
-@@ -181,17 +181,17 @@ static time_t filetime_to_unix_time(int64_t wintime)
+@@ -181,16 +181,17 @@ static time_t filetime_to_unix_time(int64_t wintime)
  
  static bool get_file_ids_win8(HANDLE h, dev_t *dev, ino_t *ino)
  {
 -    FILE_ID_INFO ii;
 -    if (!GetFileInformationByHandleEx(h, FileIdInfo, &ii, sizeof(ii)))
--        return false;
 +    BY_HANDLE_FILE_INFORMATION ii;
 +    if (!GetFileInformationByHandle(h, &info)) {
-+        return;
+         return false;
+-    *dev = ii.VolumeSerialNumber;
 +    }
-     *dev = ii.VolumeSerialNumber;
++    *dev = ii.dwVolumeSerialNumber;
      // The definition of FILE_ID_128 differs between mingw-w64 and the Windows
      // SDK, but we can ignore that by just memcpying it. This will also
      // truncate the file ID on 32-bit Windows, which doesn't support __int128.
      // 128-bit file IDs are only used for ReFS, so that should be okay.
 -    static_assert(sizeof(*ino) <= sizeof(ii.FileId), "");
 -    memcpy(ino, &ii.FileId, sizeof(*ino));
--    return true;
 +    ULONGLONG fileIndex = ((ULONGLONG)ii.nFileIndexHigh << 32) | ii.nFileIndexLow;
 +    memcpy(ino, &fileIndex, sizeof(ULONGLONG));
+     return true;
  }
  
- #if HAVE_UWP
 -- 
 
 

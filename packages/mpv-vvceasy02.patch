@@ -1,26 +1,29 @@
-From bae63774ee76df94c1dbcdd47055d1c0447a1505 Mon Sep 17 00:00:00 2001
+From ee1feebf0b68fbb03284f9f59c67b76a2604e0ed Mon Sep 17 00:00:00 2001
 From: MartinEesmaa <martin.eesmaa@protonmail.com>
-Date: Wed, 4 Sep 2024 09:38:19 +1000
+Date: Wed, 4 Sep 2024 10:09:12 +1000
 Subject: [PATCH] osdep/io.c: Modify codes to support Win 7
 
 ---
- osdep/io.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ osdep/io.c | 17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
 
 diff --git a/osdep/io.c b/osdep/io.c
-index a8210dc..583e6ad 100644
+index a8210dc..1dfc6bf 100644
 --- a/osdep/io.c
 +++ b/osdep/io.c
-@@ -181,16 +181,17 @@ static time_t filetime_to_unix_time(int64_t wintime)
+@@ -181,16 +181,23 @@ static time_t filetime_to_unix_time(int64_t wintime)
  
  static bool get_file_ids_win8(HANDLE h, dev_t *dev, ino_t *ino)
  {
 -    FILE_ID_INFO ii;
 -    if (!GetFileInformationByHandleEx(h, FileIdInfo, &ii, sizeof(ii)))
-+    BY_HANDLE_FILE_INFORMATION ii;
-+    if (!GetFileInformationByHandle(h, &ii)) {
++    if (h == NULL || dev == NULL || ino == NULL) {
          return false;
 -    *dev = ii.VolumeSerialNumber;
++    }
++    BY_HANDLE_FILE_INFORMATION ii;
++    if (!GetFileInformationByHandle(h, &ii)) {
++        return false;
 +    }
 +    *dev = ii.dwVolumeSerialNumber;
      // The definition of FILE_ID_128 differs between mingw-w64 and the Windows
@@ -30,6 +33,9 @@ index a8210dc..583e6ad 100644
 -    static_assert(sizeof(*ino) <= sizeof(ii.FileId), "");
 -    memcpy(ino, &ii.FileId, sizeof(*ino));
 +    ULONGLONG fileIndex = ((ULONGLONG)ii.nFileIndexHigh << 32) | ii.nFileIndexLow;
++    if (sizeof(*ino) < sizeof(ULONGLONG)) {
++        return false;
++    }
 +    memcpy(ino, &fileIndex, sizeof(ULONGLONG));
      return true;
  }

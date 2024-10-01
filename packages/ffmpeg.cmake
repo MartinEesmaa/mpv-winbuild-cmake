@@ -2,7 +2,7 @@ ExternalProject_Add(ffmpeg
     DEPENDS
         amf-headers
         avisynth-headers
-        nvcodec-headers
+        ${nvcodec_headers}
         bzip2
         lame
         lcms2
@@ -43,8 +43,8 @@ ExternalProject_Add(ffmpeg
         vvdec
         fdk-aac
         vapoursynth
-        uavs3d
-        davs2
+        ${ffmpeg_uavs3d}
+        ${ffmpeg_davs2}
         rubberband
         libva
     GIT_REPOSITORY https://github.com/MartinEesmaa/FFmpeg.git
@@ -93,8 +93,8 @@ ExternalProject_Add(ffmpeg
         --enable-libdav1d
         --enable-libvvdec
         --enable-libfdk_aac
-        --enable-libdavs2
-        --enable-libuavs3d
+        ${ffmpeg_davs2_cmd}
+        ${ffmpeg_uavs3d_cmd}
         --enable-libxvid
         --enable-libzimg
         --enable-openssl
@@ -108,10 +108,7 @@ ExternalProject_Add(ffmpeg
         --enable-libshaderc
         --enable-libzvbi
         --enable-libaribcaption
-        --enable-cuda-llvm
-        --enable-cuvid
-        --enable-nvdec
-        --enable-nvenc
+        ${ffmpeg_cuda}
         --enable-amf
         --enable-openal
         --enable-opengl

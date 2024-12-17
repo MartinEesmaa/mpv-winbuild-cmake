@@ -32,7 +32,7 @@ jobs:
     env:
       BIT: ${{ matrix.bit }}
     container:
-      image: docker://ghcr.io/MartinEesmaa/archlinux:latest
+      image: docker://ghcr.io/shinchiro/archlinux:latest
     outputs:
       mpv_ver: ${{ steps.build_mpv_step.outputs.mpv_ver }}
     steps:
@@ -216,13 +216,13 @@ jobs:
         if: ${{ github.event.inputs.github_release == 'true' && github.event.inputs.mpv_tarball == 'false' }}
         continue-on-error: true
         run: |
-          id=$(curl -u MartinEesmaa:$GH_TOKEN $CURL_RETRIES -s -X GET -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/MartinEesmaa/mpv-winbuild-cmake/releases/latest | jq -r '.id')
-          for file in release/*.7z; do curl -u MartinEesmaa:$GH_TOKEN $CURL_RETRIES -X POST -H "Accept: application/vnd.github.v3+json" -H "Content-Type: $(file -b --mime-type $file)" https://uploads.github.com/repos/MartinEesmaa/mpv-winbuild-cmake/releases/$id/assets?name=$(basename $file) --data-binary @$file; done
+          id=$(curl -u martineesmaa:$GH_TOKEN $CURL_RETRIES -s -X GET -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/martineesmaa/mpv-winbuild-cmake/releases/latest | jq -r '.id')
+          for file in release/*.7z; do curl -u martineesmaa:$GH_TOKEN $CURL_RETRIES -X POST -H "Accept: application/vnd.github.v3+json" -H "Content-Type: $(file -b --mime-type $file)" https://uploads.github.com/repos/martineesmaa/mpv-winbuild-cmake/releases/$id/assets?name=$(basename $file) --data-binary @$file; done
 
       - name: Delete releases cache
         if: ${{ github.event.inputs.github_release == 'false' || steps.upload_packages_gh.outcome == 'success' }}
         run: |
-          curl -u MartinEesmaa:$GH_TOKEN $CURL_RETRIES -s -o /dev/null -X DELETE -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/MartinEesmaa/mpv-winbuild-cmake/actions/caches?key=$release_x86_64_key
+          curl -u martineesmaa:$GH_TOKEN $CURL_RETRIES -s -o /dev/null -X DELETE -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/martineesmaa/mpv-winbuild-cmake/actions/caches?key=$release_x86_64_key
 
   gist:
     name: Gist

@@ -40,7 +40,6 @@ ExternalProject_Add(ffmpeg
         aom
         svtav1
         dav1d
-        vvdec
         fdk-aac
         vapoursynth
         ${ffmpeg_uavs3d}
@@ -90,7 +89,6 @@ ExternalProject_Add(ffmpeg
         --enable-libaom
         --enable-libsvtav1
         --enable-libdav1d
-        --enable-libvvdec
         --enable-libfdk_aac
         ${ffmpeg_davs2_cmd}
         ${ffmpeg_uavs3d_cmd}
@@ -117,6 +115,7 @@ ExternalProject_Add(ffmpeg
         --enable-vaapi
         --disable-vdpau
         --disable-videotoolbox
+        --disable-audiotoolbox
         --disable-decoder=libaom_av1
         ${ffmpeg_lto}
         --extra-cflags='-Wno-error=int-conversion'

@@ -13,8 +13,6 @@ ExternalProject_Add(vvdec
         -DVVDEC_ENABLE_LINK_TIME_OPT=OFF
         -DVVDEC_ENABLE_WERROR=OFF
         -DCMAKE_POLICY_VERSION_MINIMUM=3.5
-        -DCMAKE_C_FLAGS="-fpermissive -Wno-error=uninitialized -Wno-error=maybe-uninitialized"
-        -DCMAKE_CXX_FLAGS="-fpermissive -Wno-error=uninitialized -Wno-error=maybe-uninitialized"
     BUILD_COMMAND ${EXEC} ninja -v -C <BINARY_DIR>
     INSTALL_COMMAND ${EXEC} ninja -v -C <BINARY_DIR> install
     LOG_DOWNLOAD 1 LOG_UPDATE 1 LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1

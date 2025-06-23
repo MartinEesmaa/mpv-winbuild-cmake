@@ -52,9 +52,19 @@ ExternalProject_Add(ffmpeg
     GIT_CLONE_FLAGS "--sparse --filter=tree:0"
     GIT_CLONE_POST_COMMAND "sparse-checkout set --no-cone /* !tests/ref/fate"
     UPDATE_COMMAND ""
-    CONFIGURE_COMMAND ${EXEC} CONF=1 <SOURCE_DIR>/configure
-        --cross-prefix=${TARGET_ARCH}-
+    CONFIGURE_COMMAND
+        export PATH=${CMAKE_INSTALL_PREFIX}/bin:$PATH &&
+        export CC=${TARGET_ARCH}-gcc &&
+        export CXX=${TARGET_ARCH}-g++ &&
+        export AR=${TARGET_ARCH}-ar &&
+        export LD=${TARGET_ARCH}-ld &&
+        export NM=${TARGET_ARCH}-nm &&
+        export STRIP=${TARGET_ARCH}-strip &&
+        ${EXEC} CONF=1 <SOURCE_DIR>/configure
+        --cross-prefix=${CMAKE_INSTALL_PREFIX}/bin/${TARGET_ARCH}-
         --prefix=${MINGW_INSTALL_PREFIX}
+        --incdir=${CMAKE_INSTALL_PREFIX}/${TARGET_ARCH}/include
+        --libdir=${CMAKE_INSTALL_PREFIX}/${TARGET_ARCH}/lib
         --arch=${TARGET_CPU}
         --target-os=mingw32
         --pkg-config-flags=--static

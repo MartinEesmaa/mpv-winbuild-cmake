@@ -81,7 +81,6 @@ list(APPEND ep
     shaderc
     glad
     fast_float
-    libdovi
     svtav1
     libplacebo
     libva

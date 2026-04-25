@@ -22,6 +22,8 @@ ExternalProject_Add(mpv
         spirv-cross
         vapoursynth
         libsdl2
+        subrandr
+        libsixel
     GIT_REPOSITORY https://github.com/mpv-player/mpv.git
     SOURCE_DIR ${SOURCE_LOCATION}
     GIT_CLONE_FLAGS "--filter=tree:0"
@@ -53,6 +55,8 @@ ExternalProject_Add(mpv
         -Dspirv-cross=enabled
         -Dvulkan=enabled
         -Dvapoursynth=enabled
+        -Dsubrandr=enabled
+        -Dsixel=enabled
         ${mpv_gl}
         -Dc_args='-Wno-error=int-conversion'
     BUILD_COMMAND ${EXEC} LTO_JOB=1 PDB=1 ninja -C <BINARY_DIR>

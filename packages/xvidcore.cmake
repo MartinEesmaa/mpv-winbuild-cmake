@@ -2,6 +2,7 @@ ExternalProject_Add(xvidcore
     URL "https://downloads.xvid.com/downloads/xvidcore-1.3.7.tar.bz2"
     URL_HASH SHA256=aeeaae952d4db395249839a3bd03841d6844843f5a4f84c271ff88f7aa1acff7
     DOWNLOAD_DIR ${SOURCE_LOCATION}
+    PATCH_COMMAND patch -p1 -i ${CMAKE_CURRENT_SOURCE_DIR}/xvidcore-3-bool.patch
     CONFIGURE_COMMAND ${EXEC} cd <SOURCE_DIR>/build/generic && CONF=1 ./configure # running configure outside that directory will make it happily ignore --host while building
         --host=${TARGET_ARCH}
         --prefix=${MINGW_INSTALL_PREFIX}
@@ -27,7 +28,6 @@ if(${TARGET_CPU} MATCHES "x86_64")
         DEPENDEES download update patch
         DEPENDERS autoconf
         COMMAND patch -p0 < ${CMAKE_CURRENT_SOURCE_DIR}/xvidcore-2-win64.patch
-        COMMAND patch -p0 < ${CMAKE_CURRENT_SOURCE_DIR}/xvidcore-3-bool.patch
         WORKING_DIRECTORY <SOURCE_DIR>
     )
 endif()

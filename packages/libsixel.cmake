@@ -13,7 +13,7 @@ ExternalProject_Add(libsixel
         --disable-shared
         --disable-tests
         --enable-static
-        CFLAGS='-std=c11' # Force C11 with GNU extensions to avoid allocator errors
+        CFLAGS='-std=c99' # Force C99 with GNU extensions to avoid allocator errors
     BUILD_COMMAND ${MAKE}
     INSTALL_COMMAND ${MAKE} install
     BUILD_IN_SOURCE 1

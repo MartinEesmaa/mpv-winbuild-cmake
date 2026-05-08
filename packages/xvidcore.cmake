@@ -27,6 +27,7 @@ if(${TARGET_CPU} MATCHES "x86_64")
         DEPENDEES download update patch
         DEPENDERS autoconf
         COMMAND patch -p0 < ${CMAKE_CURRENT_SOURCE_DIR}/xvidcore-2-win64.patch
+        COMMAND patch -p0 < ${CMAKE_CURRENT_SOURCE_DIR}/xvidcore-3-bool.patch
         WORKING_DIRECTORY <SOURCE_DIR>
     )
 endif()

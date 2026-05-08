@@ -2,10 +2,10 @@ ExternalProject_Add(xvidcore
     URL "https://downloads.xvid.com/downloads/xvidcore-1.3.7.tar.bz2"
     URL_HASH SHA256=aeeaae952d4db395249839a3bd03841d6844843f5a4f84c271ff88f7aa1acff7
     DOWNLOAD_DIR ${SOURCE_LOCATION}
-    PATCH_COMMAND patch -p0 -i ${CMAKE_CURRENT_SOURCE_DIR}/xvidcore-3-bool.patch
     CONFIGURE_COMMAND ${EXEC} cd <SOURCE_DIR>/build/generic && CONF=1 ./configure # running configure outside that directory will make it happily ignore --host while building
         --host=${TARGET_ARCH}
         --prefix=${MINGW_INSTALL_PREFIX}
+        CFLAGS='-std=gnu17' # Force C17 with GNU extensions to avoid typedef bool int error
     BUILD_COMMAND ${MAKE} -C build/generic BUILD_DIR=build SHARED_LIB=
     INSTALL_COMMAND install -d ${MINGW_INSTALL_PREFIX}/include
         COMMAND install -m644 src/xvid.h ${MINGW_INSTALL_PREFIX}/include/

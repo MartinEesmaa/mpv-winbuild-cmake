@@ -13,7 +13,7 @@ ExternalProject_Add(libsixel
         --disable-shared
         --disable-tests
         --enable-static
-        CFLAGS="-std=gnu17" # Force C17 with GNU extensions to avoid allocator errors
+        CFLAGS='-std=gnu17' # Force C17 with GNU extensions to avoid allocator errors
     BUILD_COMMAND ${MAKE}
     INSTALL_COMMAND ${MAKE} install
     BUILD_IN_SOURCE 1

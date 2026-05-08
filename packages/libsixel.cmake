@@ -4,6 +4,7 @@ ExternalProject_Add(libsixel
     GIT_CLONE_FLAGS "--sparse --filter=tree:0"
     GIT_CLONE_POST_COMMAND "sparse-checkout set --no-cone /* !images"
     UPDATE_COMMAND ""
+    PATCH_COMMAND ${EXEC} git am --3way ${CMAKE_CURRENT_SOURCE_DIR}/libsixel-*.patch
     CONFIGURE_COMMAND ${EXEC} <SOURCE_DIR>/autogen.sh && CONF=1 <SOURCE_DIR>/configure
         --host=${TARGET_ARCH}
         --prefix=${MINGW_INSTALL_PREFIX}
@@ -13,7 +14,7 @@ ExternalProject_Add(libsixel
         --disable-shared
         --disable-tests
         --enable-static
-        CFLAGS='-std=c99' # Force C99 with GNU extensions to avoid allocator errors
+        CFLAGS='-std=gnu17' # Force C17 with GNU extensions to avoid allocator errors
     BUILD_COMMAND ${MAKE}
     INSTALL_COMMAND ${MAKE} install
     BUILD_IN_SOURCE 1

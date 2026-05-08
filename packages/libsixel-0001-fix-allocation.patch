@@ -1,0 +1,23 @@
+From d4ad3390547b5b75406eae41481d6d4b72a5cb19 Mon Sep 17 00:00:00 2001
+From: MartinEesmaa <martin.eesmaa@protonmail.com>
+Date: Sat, 9 May 2026 02:26:24 +0300
+Subject: [PATCH] Fix allocation error for new compilers
+
+---
+ src/loader.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/loader.c b/src/loader.c
+index 14437c7c1..3ea8d75ce 100644
+--- a/src/loader.c
++++ b/src/loader.c
+@@ -1523,6 +1523,7 @@ static int
+ test2(void)
+ {
+     int nret = EXIT_FAILURE;
++    sixel_allocator_t *allocator = NULL;
+ #if HAVE_GDK_PIXBUF2
+     size_t i;
+     FILE *fp;
+-- 
+

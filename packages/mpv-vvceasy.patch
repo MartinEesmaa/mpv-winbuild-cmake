@@ -1,6 +1,6 @@
-From a446ae1314d178d84f4cc4bd909c5808d6e5816d Mon Sep 17 00:00:00 2001
+From 51faad67732b174d2ebb632b9398a4b2da273573 Mon Sep 17 00:00:00 2001
 From: MartinEesmaa <martin.eesmaa@protonmail.com>
-Date: Thu, 21 Mar 2024 21:59:14 +1100
+Date: Sat, 9 May 2026 13:06:45 +0300
 Subject: [PATCH] Make top-left show in version
 
 ---
@@ -8,18 +8,17 @@ Subject: [PATCH] Make top-left show in version
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/player/lua/osc.lua b/player/lua/osc.lua
-index 3ba1890..61f6988 100644
+index 5395c63..3723d7a 100644
 --- a/player/lua/osc.lua
 +++ b/player/lua/osc.lua
-@@ -2654,7 +2654,7 @@ function tick()
-             ass:new_event()
-             ass:pos(display_w / 2, icon_y + 65)
-             ass:an(8)
--            ass:append("Drop files or URLs to play here.")
-+            ass:append("Drop files or URLs to play here.\nVVCEasy version\nBuilt by Martin Eesmaa")
-         end
-         set_osd(display_w, display_h, ass.text, -1000)
- 
+@@ -3090,7 +3090,7 @@ local function render_logo()
+         ass:new_event()
+         ass:pos(display_w / 2, icon_y + 65)
+         ass:an(8)
+-        ass:append("Drop files or URLs to play here.")
++        ass:append("Drop files or URLs to play here.\nVVCEasy version\nBuilt by Martin Eesmaa")
+     end
+     set_osd(state.logo_osd, display_w, display_h, ass.text, -1000)
+ end
 -- 
-2.40.1.windows.1
 
